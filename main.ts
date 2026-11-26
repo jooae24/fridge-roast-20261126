@@ -4,7 +4,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ENTRY =
-  "My fridge texts me that I'm out of eggs while standing in front of six of them, then updates its firmware and forgets what cold is.";
+  "My fridge texts me I'm out of eggs while staring at six of them, then updates its firmware and forgets what cold is.";
 const MIN_CHARS = 1;
 const MAX_CHARS = 200;
 
@@ -19,6 +19,9 @@ function checkEntry(text: string): void {
   }
   if (text.includes("\n") || text.includes("\r")) {
     throw new Error("entry must be a single line");
+  }
+  if (text !== text.trim() || text.includes("  ")) {
+    throw new Error("entry must not have leading/trailing whitespace or double spaces");
   }
 }
 
